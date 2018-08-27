@@ -71,6 +71,9 @@
 ;((a != b) ?
 ;   ((a > b) ? "greater" : "less")
 ;   : "equal")
+(if (/= a b) 
+    (if (> a b) (print "greater") (print "less")) 
+  (print "equal"))
 
 ;if (a == b) return MAX (4 * 3 + cos(2.1), 7 / log(1.2)); else return exp(abs (a - b) * (3 % a));
 
