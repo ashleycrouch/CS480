@@ -1,0 +1,95 @@
+;ASSIGNMENT 1: Getting up to speed in Lisp.
+
+;QUESTION 1. What is printed and returned by the following expressions, and why? ... Yes, I know that the third expression acts unusually. Explain why. 
+(sqrt (- (+ 1/2 1/3 1/6)))
+;Steps: 
+;1. Adds 1/2, 1/3, and 1/6 together
+;2. Negates the result
+;3. Square roots the result
+;4. returns #C(0.0 1.0), equivalent to the complex value 'i'
+
+(quote (sqrt (- (+ 1/2 1/3 1/6))))
+;QUOTE bypasses evaluation of arguments inside it and returns the argument as you typed it
+;returns (SQRT (- (+ 1/2 1/3 1/6)))
+;NOTE: This return is also a list
+
+(sqrt (quote (- (+ 1/2 1/3 1/6))))
+;returns Error: in SQRT of ((- (+ 1/2 1/3 1/6))) arguments should be of type NUMBER.
+;QUOTE returns a list, which is not a number, as the error says. 
+
+(print (sqrt (- (+ 1/2 1/3 1/6))))
+;returns #C(0.0 1.0)
+;        #C(0.0 1.0)
+;Prints out the solution to (SQRT (- (+ 1/2 1/3 1/6))), which is #C(0.0 1.0)
+
+;QUESTION 2. Describe the steps the Lisp Interpreter will go through to evaluate the following steps, including recursive substeps.
+(+ (- 5 1) (+ 3 7))
+;Steps:
+;1. The + function is looked up
+;2. (- 5 1) is evaluated:
+;   1. The - function is looked up
+;   2. 5 is evaluated (its value is 5)
+;   3. 1 is evaluated (its value is 1)
+;   4. 5 and 1 are passed to the - function
+;   5. The - function returns 4. This is the value of (- 5 1)
+;3. (+ 3 7) is evaluated:
+;   1. The + function is looked up
+;   2. 3 is evaluated (its value is 3)
+;   3. 7 is evaluated (its value is 7)
+;   4. 3 and 7 are passed to the + function
+;   5. The + function returns 10. This is the value of (+ 3 7)
+;4. 4 and 10 are passed to the + function
+;5. The + function returns 14. This is the value of (+ (- 5 1) (+ 3 7))
+;6. The Lisp system returns 14. 
+
+(if (= 5 4)
+    (print (+ 3 7))
+  (print (print "hello")))
+;Steps: 
+;1. The if function is looked up
+;2. (= 5 4) is evaluated as test-expression
+;   1. The = function is looked up
+;   2. 5 is evaluated (its value is 5)
+;   3. 4 is evaluated (its value is 4)
+;   4. 5 and 4 are passed to the = function
+;   5. The = function returns nil. This is the value of (= 5 4)
+;3. nil is passed to the if function
+;4. (print (print "hello")) is evaluated as optional-else-expression
+;   1. The print function is looked up
+;   2. (print "hello") is evaluated
+;      1. print function looked up
+;      2. "hello" is printed in output 
+;      3. The print function returns "hello". This is the value of (print "hello")
+;   3. "hello" is passed to the print function
+;   4. "hello is printed in output
+;   5. The print function returns "hello" and also prints "hello" in output as the last value
+
+;QUESTION 3. Create Lisp expressions which perform the same function as the following C expressions:
+;a + b * c - d 
+(- (+ a (* b c)) d)
+
+;((a != b) ?
+;   ((a > b) ? "greater" : "less")
+;   : "equal")
+
+;if (a == b) return MAX (4 * 3 + cos(2.1), 7 / log(1.2)); else return exp(abs (a - b) * (3 % a));
+
+;QUESTION 4. What do the following functions do? I'm looking for BOTH a specific description AND some insight into what purpose you'd use it for.
+ 
+;;; Function 1: MYSTERY ;;; example usage: (mystery)
+(defparameter *mystery-value* 234567) 
+
+(defun mystery ()
+ (setf *mystery-value*
+       (mod (* *mystery-value* 16807) 2147483647)))
+
+;;; Function 2: RIDDLE ;;; pass in a list for LIS ;;; example usage: 
+(riddle '(a b c d e f g))
+
+(defun riddle (lis)
+ (if (not (null lis)) ;; if lis is non-empty (it's not NIL)
+     (progn
+       (riddle (rest lis))
+       (print (first lis))))
+ "All Done")
+
