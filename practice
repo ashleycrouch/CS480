@@ -98,11 +98,9 @@
 ;I would use this function for generating a seed value for plugging into a function that randomly generates content based on the seed.
 
 
-
 ;;; Function 2: RIDDLE 
 ;;; pass in a list for LIS 
-;;; example usage: 
-;(riddle '(a b c d e f g))
+;;; example usage: (riddle '(a b c d e f g))
 
 ;(defun riddle (lis)
 ; (if (not (null lis)) ;; if lis is non-empty (it's not NIL)
@@ -110,5 +108,9 @@
 ;       (riddle (rest lis))
 ;       (print (first lis))))
 ; "All Done")
+
+;riddle() prints out the input list values in reverse order by recursively calling itself. If the list is not null, it calls riddle() with the list without the first element of the list. Once that riddle fully completes, then it prints out the first element of the list. It prints out the whole list in reverse order and then returns. 
+
+
 
 
