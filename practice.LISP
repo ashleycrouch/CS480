@@ -111,16 +111,35 @@
 
 ;riddle() prints out the input list values in reverse order by recursively calling itself. If the list is not null, it calls riddle() with the list without the first element of the list. Once that riddle fully completes, then it prints out the first element of the list. It prints out the whole list in reverse order and then returns. 
 
-;QUESTION 5. 
-(defun full-reverse(lis)
-  (if (not (null lis))
-	(progn
-		(full-reverse(rest lis))
-		(reverse (first lis)))))
+;QUESTION 5.
+;(defun full-reverse (lis)
+;  (if (listp (first lis)) 
+;      (full-reverse (rest lis))
+;    (full-reverse (first lis)))
+;(print(reverse (lis))))
+
+;(defun full-reverse (lis)
+;  (if (listp (first lis))
+;      (progn (print (first list) "first") (full-reverse (first lis))) ;if then
+;    (progn (print (first list) "first" (rest list) "rest") (full-reverse (rest lis)))) ;else
+;  (if (not (null (rest lis))) 
+;      (reverse lis)) ;if then
+;(print lis "full"))
+
+(defun full-reverse (lis)
+  (setf lis (reverse lis))
+  (if (listp (first lis))
+      (setf (first lis) (full-reverse (first lis)))
+    (if (not (null (rest lis))) 
+        (full-reverse (rest lis))))
+(print lis))
+
+
+;(if check then-statement else-statement)
 
 ;QUESTION 6. 
-(defun transpose()
-)
+;(defun transpose()
+;)
 
 ;QUESTION 7.
 
